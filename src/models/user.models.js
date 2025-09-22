@@ -28,13 +28,16 @@ const userSchema = new Schema({ //modelo/esquema usuario
             type: String 
         },
         biography: { 
-            type: String 
+            type: String,
+            allowNull: true,
         },
         avatarUrl: {
+            allowNull: true,
             type: String
         },
         birthdate: { 
-            type: Date 
+            type: Date,
+            allowNull: true
         },
     },
     createdAt: { 

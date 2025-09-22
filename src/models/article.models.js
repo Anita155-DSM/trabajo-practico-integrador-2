@@ -1,4 +1,4 @@
-import { Schema, Types } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
 const articleSchema = new Schema({ //modelo/esquema articulo
     title: { 
