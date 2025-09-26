@@ -26,13 +26,15 @@ const articleSchema = new Schema({ //modelo/esquema articulo
         type: Types.ObjectId,
         ref: 'user',
         required: true
-    },
+    }
+}, {
     createdAt: { 
         type: Date
     },
     updatedAt: { 
         type: Date
-    }
+    },
+    versionKey: false
 });
 
 const articleModel = mongoose.model('article', articleSchema);

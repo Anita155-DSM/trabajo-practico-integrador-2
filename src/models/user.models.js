@@ -35,17 +35,22 @@ const userSchema = new Schema({ //modelo/esquema usuario
             allowNull: true,
             type: String
         },
-        birthdate: { 
+        birthDate: { 
             type: Date,
             allowNull: true
         },
-    },
+    }
+}, {
     createdAt: { 
         type: Date
     },
     updatedAt: { 
         type: Date 
-    }
+    },
+    deletedAt: {
+        type: Date
+    },
+    versionKey: false
 });
     
 const userModel = mongoose.model('user', userSchema);

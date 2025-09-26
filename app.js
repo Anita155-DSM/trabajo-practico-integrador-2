@@ -21,6 +21,6 @@ app.use(routes);
 //levanto primero el servidor de la siguiente manera:
 app.listen(PORT, async() => {
     await connectDB();
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
+    console.log(`Servidor escuchando en el puerto ${PORT}`)
 });
 

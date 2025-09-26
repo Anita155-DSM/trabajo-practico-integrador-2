@@ -20,9 +20,15 @@ export const validateCreateUser = [
     .isLength({min: 2, max: 50})
     .withMessage("El apellido debe tener entre 2 y 50 caracteres"),
     body("profile.biography")
+    .optional()  //agregue el opcional para los campos que lo requerian en el tp
     .isLength({max: 500})
     .withMessage("La biografia no debe superar los 500 caracteres"),
     body("profile.avatarUrl")
+    .optional()
     .isURL()
-    .withMessage("La URL del avatar no es valida")    
+    .withMessage("La URL del avatar no es valida"),
+    body("profile.birthDate")
+    .optional()
+    .isDate()
+    .withMessage("La fecha de nacimiento no es valida")
 ]

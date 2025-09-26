@@ -8,13 +8,15 @@ const tagSchema = new Schema({ //modelo/esquema tag
     description: {
         type: String,
         allowNull: true
-    },
+    }
+}, {
     createdAt: {
         type: Date
     },
     updatedAt: {
         type: Date
-    }
+    },
+    versionKey: false
 });
 
 const tagModel = mongoose.model('tag', tagSchema);

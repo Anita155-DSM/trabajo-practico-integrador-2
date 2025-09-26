@@ -1,4 +1,4 @@
-import { Schema, Types } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
 const commentSchema = new Schema({
     content: { 
@@ -12,13 +12,15 @@ const commentSchema = new Schema({
     article: {
         type: Types.ObjectId,
         ref: "article"
-    },
-    createdAt: { 
-        type: Date, 
-    },
-    updateAt: {
-        type: Date
     }
+}, {
+    createdAt: { 
+        type: Date
+    },
+    updatedAt: {
+        type: Date
+    },
+    versionKey: false
 });
 
 const commentModel = mongoose.model("comment", commentSchema);
