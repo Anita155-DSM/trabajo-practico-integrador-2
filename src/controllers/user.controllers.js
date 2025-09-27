@@ -40,6 +40,15 @@ const updateUser = async (req, res) => {
         if (!existingUser) {
             return res.status(404).json({msg: "El usuario no existe"});
         }
+        //compara los datos 
+        const same = req.body.username === existingUser.username &&
+        req.body.email === existingUser.email &&
+        req.body.role === existingUser.role &&
+        JSON.stringify(req.body.profile) === JSON.stringify(existingUser.profile);
+        if (same){
+            return res.status(400).json({msg: "No hay cambios para actualizar"});
+        }
+        //si hay cambios, actualiza
         const updatedUser = await userModel.findByIdAndUpdate(
             req.params.id, 
             req.body
