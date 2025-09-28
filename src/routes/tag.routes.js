@@ -7,7 +7,7 @@ import { Router } from "express";
 const routerTag = Router();
 
 routerTag.post('/tags', authMiddleware, authAdminMiddleware, createTag);
-routerTag.get('/tags', authMiddleware, authOwnerMiddleware, getAllTags);
+routerTag.get('/tags', authMiddleware, getAllTags);
 routerTag.get('/tags/:id', authMiddleware, authOwnerMiddleware, getTagByID);
 routerTag.put('/tags/:id', authMiddleware, authAdminMiddleware, updateTag);
 routerTag.delete('/tags/:id', authMiddleware, authAdminMiddleware, deleteTag);

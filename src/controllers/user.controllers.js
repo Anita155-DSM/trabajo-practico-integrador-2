@@ -1,4 +1,6 @@
 import userModel from "../models/user.models.js";
+import articleModel from "../models/article.models.js"
+import commentModel from "../models/comment.models.js"
 
 const getAllUsers = async (req, res) => {
     try {
@@ -69,6 +71,10 @@ const deleteUser = async (req, res) => {
         if (!existingUser) {
             return res.status(404).json({msg: "El usuario no existe"});
         }
+        //eliminación en cascada, elimina todos los artículos y comentarios del usuario
+        await articleModel.deleteMany({ author: req.params.id })
+        await commentModel.deleteMany({ author: req.params.id })
+        //eliminación lógica
         const user = await userModel.findByIdAndUpdate(
             req.params.id,
             { deletedAt: new Date() }, //se lo considera algo asi como eliminado y se pone su fecha
