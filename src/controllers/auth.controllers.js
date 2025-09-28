@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { generateToken } from "../helpers/jwt.helpers.js";
-import userModel from "../models/user.models";
+import userModel from "../models/user.models.js";
 import { hashPassword, comparePassword } from "../helpers/bcrypt.helpers.js";
 
 //LOGICA REGISTRO
@@ -32,9 +32,11 @@ export const register = async (req, res) => {
             ok: true
         })
     } catch (error) {
+        console.error(error); // Muestra el error en la consola
         res.status(500).json({
             msg: "Error al crear usuario",
-            ok: false
+            ok: false,
+            error: error.message
         })
     }
 }
@@ -88,5 +90,26 @@ export const logout = async (req, res) => {
             msg: "error interno del servidor",
             ok: false
         })
+    }
+}
+
+//logica profile(no me di cuenta en el tp)
+export const profile = async (req, res) => {
+    try {
+        const user = await userModel.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ msg: "Usuario no encontrado", ok: false });
+        }
+        res.status(200).json({ 
+            msg: "Perfil obtenido correctamente", 
+            data: user, 
+            ok: true 
+        });
+    } catch (error) {
+        res.status(500).json({
+            msg: "error interno del servidor",
+            error: error.message,
+            ok: false
+        });
     }
 }

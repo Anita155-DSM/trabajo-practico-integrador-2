@@ -1,7 +1,9 @@
 import { body, param } from "express-validator";
 
-const createTagValidator = [  //validador para crear tag
+export const createTagValidator = [  //validador para crear tag
     body("name")
+    .notEmpty()
+    .withMessage("el nombre es obligatorio")
     .isLength({min: 2, max: 30})
     .withMessage("El nombre del tag debe tener entre 2 y 30 caracteres")
     .matches(/^\S+$/) //aca hacemos + y no * porque la idea es que el nombre no venga vacío

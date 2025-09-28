@@ -16,7 +16,7 @@ app.use(cors());
 //cookies
 app.use(cookieParser());
 //rutas
-app.use(routes);
+app.use('/api', routes);
 
 //levanto primero el servidor de la siguiente manera:
 app.listen(PORT, async() => {

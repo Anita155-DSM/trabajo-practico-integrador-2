@@ -1,4 +1,4 @@
-import { verifyToken } from "../helpers/jwt.helpers";
+import { verifyToken } from "../helpers/jwt.helpers.js";
 
 const authMiddleware = async (req, res, next) => {
     const token = req.cookies.token;
