@@ -1,6 +1,6 @@
 import { body, param } from "express-validator";
 
-export const createTagValidator = [  //validador para crear tag
+const createTagValidator = [  //validador para crear tag
     body("name")
     .notEmpty()
     .withMessage("el nombre es obligatorio")
@@ -13,3 +13,5 @@ export const createTagValidator = [  //validador para crear tag
     .isLength({max: 200})
     .withMessage("La descripcion no debe superar los 200 caracteres")
 ];
+
+export default createTagValidator;

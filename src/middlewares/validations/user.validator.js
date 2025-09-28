@@ -5,7 +5,7 @@ import { validator } from "../validator.js";
 import isURL from "validator/lib/isURL.js";
 
 //validator para crear usuario
-export const validateCreateUser = [
+const validateCreateUser = [
     //user validaciones
     body("username")
     .isLength({ min: 3, max: 20 })
@@ -47,3 +47,5 @@ export const validateCreateUser = [
     .isDate()
     .withMessage("La fecha de nacimiento no es valida")
 ]
+
+export default validateCreateUser
