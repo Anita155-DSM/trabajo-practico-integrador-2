@@ -1,19 +1,19 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 const articleSchema = new Schema({ //modelo/esquema articulo
-    title: { 
-        type: String,   
+    title: {
+        type: String,
         required: true //esto preguntar al profe
     },
-    content: { 
+    content: {
         type: String,
         required: true
     },
-    excerpt: { 
+    excerpt: {
         type: String,
         allowNull: true
     },
-    status: { 
+    status: {
         type: String,
         enum: ['published', 'archived'],
         default: 'published'
@@ -22,20 +22,29 @@ const articleSchema = new Schema({ //modelo/esquema articulo
         type: Types.ObjectId,
         ref: 'tag'
     }],
-    author: { 
+    author: {
         type: Types.ObjectId,
         ref: 'user',
         required: true
     }
 }, {
-    createdAt: { 
+    createdAt: {
         type: Date
     },
-    updatedAt: { 
+    updatedAt: {
         type: Date
     },
     versionKey: false
 });
+
+//populate reverso
+articleSchema.virtual('comments', {
+    ref: 'comment',
+    localField: '_id',
+    foreignField: 'article'
+});
+articleSchema.set('toObject', { virtuals: true });
+articleSchema.set('toJSON', { virtuals: true });
 
 const articleModel = mongoose.model('article', articleSchema);
 export default articleModel;

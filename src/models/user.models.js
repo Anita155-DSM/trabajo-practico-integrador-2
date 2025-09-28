@@ -39,19 +39,25 @@ const userSchema = new Schema({ //modelo/esquema usuario
             type: Date,
             allowNull: true
         },
-    }
-}, {
-    createdAt: { 
-        type: Date
-    },
-    updatedAt: { 
-        type: Date 
     },
     deletedAt: {
-        type: Date
-    },
+        type: Date,
+        default: null
+    }
+}, {
+    timestamps: true,
     versionKey: false
 });
+
+//populate reverso
+userSchema.virtual('articles',{
+    ref: 'article',
+    localField: '_id',
+    foreignField: 'author'
+})
+
+userSchema.set('toObject', { virtuals: true });
+userSchema.set('toJSON', { virtuals: true });
     
 const userModel = mongoose.model('user', userSchema);
 export default userModel;

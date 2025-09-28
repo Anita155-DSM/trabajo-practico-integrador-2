@@ -1,4 +1,5 @@
 import articleModel from "../models/article.models.js";
+import commentModel from "../models/comment.models.js";
 
 const createArticle = async (req,res) => {
     const {title, content, excerpt, status, tags, author} = req.body;
@@ -7,7 +8,7 @@ const createArticle = async (req,res) => {
         if (articleExisting) {
             return res.status(400).json({msg: "El articulo ya existe"});
         }
-        const newArticle = articleModel.create({
+        const newArticle = await articleModel.create({
             title,
             content,
             excerpt,
@@ -30,7 +31,7 @@ const createArticle = async (req,res) => {
 
 const getAllArticles = async (req, res) => {
     try {
-        const articles = await articleModel.find().populate('author').populate('tags');
+        const articles = await articleModel.find().populate('author').populate('tags').populate('comments');
         res.status(200).json({
             msg: "Lista de articulos",
             data: articles,
@@ -68,7 +69,7 @@ const getArticleByID = async (req, res) => {
 
 const updateArticle = async (req, res) => {
     try {
-        const article = await articleModel.findByIdAndUpdate(req.params.id, req.body);
+        const article = await articleModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!article) {
             return res.status(404).json({
                 msg: "articulo no encontrado",
@@ -97,6 +98,8 @@ const deleteArticle = async (req, res) => {
                 ok: false
             });
         }
+        //eliminación en cascada, elimina todos los comentarios del artículo
+        await commentModel.deleteMany({article: req.params.id});
         res.status(200).json({
             msg: "articulo eliminado correctamente",
             data: article,

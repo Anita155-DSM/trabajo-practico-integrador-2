@@ -2,7 +2,7 @@ import userModel from "../models/user.models.js";
 
 const getAllUsers = async (req, res) => {
     try {
-        const users = await userModel.find();
+        const users = await userModel.find({ deletedAt: null }).populate('articles').populate('comments');
         res.status(200).json({
             msg: "Lista de usuarios",
             data: users,
@@ -69,7 +69,11 @@ const deleteUser = async (req, res) => {
         if (!existingUser) {
             return res.status(404).json({msg: "El usuario no existe"});
         }
-        const user = await userModel.findByIdAndDelete(req.params.id);
+        const user = await userModel.findByIdAndUpdate(
+            req.params.id,
+            { deletedAt: new Date() }, //se lo considera algo asi como eliminado y se pone su fecha
+            { new: true }
+        );
         res.status(200).json({
             msg: "Usuario eliminado correctamente",
             data: user,
