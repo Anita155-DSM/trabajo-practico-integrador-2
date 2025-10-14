@@ -56,8 +56,14 @@ export const deleteArticleTag = async (req, res) => {
                 articleId, 
                 {
                     $pull: { tags: tagId } //decimos el metodo, donde vamosa  guardar y que vamos a guardar
-                }
-            )
+                },
+                { new: true }
+            );
+            return res.status(200).json({
+                msg: "Etiqueta eliminada del artículo correctamente",
+                data: removeTag,
+                ok: true
+            });
         } catch (error) {
             console.error("Error al agregar etiqueta al artículo:", error);
             res.status(500).json({

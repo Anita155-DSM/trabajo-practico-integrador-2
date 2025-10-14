@@ -1,4 +1,5 @@
 import { body, param } from 'express-validator';
+import mongoose from 'mongoose';
 import commentModel from '../../models/comment.models.js';
 import articleModel from '../../models/article.models.js';
 

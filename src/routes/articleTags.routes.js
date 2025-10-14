@@ -1,5 +1,5 @@
 import { Router } from "express";
-import authMiddleware from "./auth.middleware.js";
+import authMiddleware from "../middlewares/auth.middleware.js";
 import { ownerOrAdminMiddleware } from "../middlewares/authOwner.Middleware.js";
 import { createArticleTag, deleteArticleTag }from "../controllers/articleTags.controllers.js";
 

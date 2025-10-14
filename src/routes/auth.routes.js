@@ -2,7 +2,7 @@ import { register, login, logout, profile } from "../controllers/auth.controller
 import authMiddleware from "../middlewares/auth.middleware.js";
 import validateCreateUser from "../middlewares/validations/user.validator.js";
 
-import Router from "express";
+import { Router } from "express";
 
 const routerAuth = Router();
 
